@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+- Update Git mirror functionality to support skipping the update of the Git mirror. This is useful is the Git mirror is mounted from an external volume, NFS mount etc. Enabled via the `BUILDKITE_GIT_MIRRORS_SKIP_UPDATE` flag or `git-mirrors-skip-update` cli flag.
 - Support for job tracing via [Elastic APM](https://www.elastic.co/observability/application-performance-monitoring). To enable, either set the `tracing-backend` config or the `BUILDKITE_TRACING_BACKEND` env var to `elastic`. By default the agent will attempt to send traces to the default agent address and APM port (`127.0.0.1:8200`), but this can be configured with the `ELASTIC_APM_SERVER_URL` env var.
 
 ## [v3.33.3](https://github.com/buildkite/agent/compare/v3.33.2...v3.33.3) (2021-09-29)

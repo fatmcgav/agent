@@ -83,6 +83,7 @@ type AgentStartConfig struct {
 	GitFetchFlags               string   `cli:"git-fetch-flags"`
 	GitMirrorsPath              string   `cli:"git-mirrors-path" normalize:"filepath"`
 	GitMirrorsLockTimeout       int      `cli:"git-mirrors-lock-timeout"`
+	GitMirrorsSkipUpdate        bool     `cli:"git-mirrors-skip-update"`
 	NoGitSubmodules             bool     `cli:"no-git-submodules"`
 	NoSSHKeyscan                bool     `cli:"no-ssh-keyscan"`
 	NoCommandEval               bool     `cli:"no-command-eval"`
@@ -333,6 +334,11 @@ var AgentStartCommand = cli.Command{
 			Value:  300,
 			Usage:  "Seconds to lock a git mirror during clone, should exceed your longest checkout",
 			EnvVar: "BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT",
+		},
+		cli.BoolFlag{
+			Name:   "git-mirrors-skip-update",
+			Usage:  "Skip updating the Git mirror",
+			EnvVar: "BUILDKITE_GIT_MIRRORS_SKIP_UPDATE",
 		},
 		cli.StringFlag{
 			Name:   "bootstrap-script",
@@ -639,6 +645,7 @@ var AgentStartCommand = cli.Command{
 			BuildPath:                  cfg.BuildPath,
 			GitMirrorsPath:             cfg.GitMirrorsPath,
 			GitMirrorsLockTimeout:      cfg.GitMirrorsLockTimeout,
+			GitMirrorsSkipUpdate:       cfg.GitMirrorsSkipUpdate,
 			HooksPath:                  cfg.HooksPath,
 			PluginsPath:                cfg.PluginsPath,
 			GitCloneFlags:              cfg.GitCloneFlags,
